@@ -1,5 +1,5 @@
 # Measure and plot fin rays for Eusthenopteron NUFV109    d DV comparison
-# May 24 2019
+# May 2019
 # TAS
 
 
@@ -15,7 +15,9 @@ colnames(NUV109_all_data) <- c("fin", "slice","csa","second_moment_min", "second
 
 
 # plot data ####
-group.colors <- c(Aligned_pair1_d="#E89E1C", Aligned_pair1_v="#0D929A", # set color scheme for d vs v
+
+# set color scheme for d vs v
+group.colors <- c(Aligned_pair1_d="#E89E1C", Aligned_pair1_v="#0D929A",
                   Aligned_pair2_d="#E89E1C", Aligned_pair2_v="#0D929A",
                   Aligned_pair3_d="#E89E1C", Aligned_pair3_v="#0D929A")
 
@@ -77,9 +79,6 @@ shapiro.test(NUFV109_d3$second_moment_min) # greater than 0.05= normal
 shapiro.test(NUFV109_v1$second_moment_min)
 shapiro.test(NUFV109_v2$second_moment_min) # greater than 0.05 = normal
 shapiro.test(NUFV109_v3$second_moment_min)
-
-# Interpreting the output: p-values < 0.05 imply that the distribution of the data are significantly different from normal distribution. In other words, we can assume that they are not-normal.
-# Therefore, it is more appropriate to run the Mann-Whitney-Wilcoxon Test, which allows us to testwhether the population distributions are identical without assuming them to follow the normal distribution.
 
 
 #  table of these results

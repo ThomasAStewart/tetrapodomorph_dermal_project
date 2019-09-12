@@ -1,5 +1,5 @@
 # Measure and plot fin rays for Eusthenopteron CMN10926 DV comparison
-# May 24 2019
+# May 2019
 # TAS
 
 
@@ -15,7 +15,9 @@ colnames(eusthenopteron_all_data) <- c("fin", "slice","csa","second_moment_min",
 
 
 # plot data ####
-group.colors <- c(Aligned_pair1_d="#E89E1C", Aligned_pair1_v="#0D929A", # set color scheme for d vs v
+
+# set color scheme for d vs v
+group.colors <- c(Aligned_pair1_d="#E89E1C", Aligned_pair1_v="#0D929A",
                   Aligned_pair2_d="#E89E1C", Aligned_pair2_v="#0D929A",
                   Aligned_pair3_d="#E89E1C", Aligned_pair3_v="#0D929A",
                   Aligned_pair3_d2="#E89E1C", Aligned_pair3_v2="#0D929A")
@@ -43,9 +45,6 @@ p_eust_2nd_mom <- ggplot(data=eusthenopteron_all_data, aes(x=fin, y=second_momen
 
 ggsave("output_figures/CMNH8153_mom.pdf", plot=p_eust_2nd_mom,  width=6, height=5, units = "cm")
 
-# second moment of area - max # I think not going to use. In this spp., it corresponds to the AP axis of the fin. 
-# ggplot(data=eusthenopteron_all_data, aes(x=fin, y=second_moment_max))  + geom_boxplot() + geom_jitter(shape=16, position=position_jitter(0.2), size=1, alpha=0.3) + ylim(0,0.0011)
-
 # analyzing eusthenopteron rays ####
 eusth_d1 <- eusthenopteron_all_data[eusthenopteron_all_data$fin=="Aligned_pair1_d",]
 eusth_v1 <- eusthenopteron_all_data[eusthenopteron_all_data$fin=="Aligned_pair1_v",]
@@ -54,24 +53,11 @@ eusth_v2 <- eusthenopteron_all_data[eusthenopteron_all_data$fin=="Aligned_pair2_
 eusth_d3 <- eusthenopteron_all_data[eusthenopteron_all_data$fin=="Aligned_pair3_d",]
 eusth_v3 <- eusthenopteron_all_data[eusthenopteron_all_data$fin=="Aligned_pair3_v",]
 
-# comparing area - for figure
-#pair1_fold_diff_area = (mean(eusth_d1$csa) - mean(eusth_v1$csa)) / mean(eusth_d1$csa) 
-#pair2_fold_diff_area = (mean(eusth_d2$csa) - mean(eusth_v2$csa)) / mean(eusth_d2$csa)
-(mean(eusth_d1$csa)/mean(eusth_v1$csa) +
-mean(eusth_d2$csa)/mean(eusth_v2$csa) +
-mean(eusth_d3$csa)/mean(eusth_v3$csa))/3
+# comparing difference in CSA -- for text
+(mean(eusth_d1$csa)/mean(eusth_v1$csa) + mean(eusth_d2$csa)/mean(eusth_v2$csa) + mean(eusth_d3$csa)/mean(eusth_v3$csa)) /3
 
-# comparing moment of area, minimum - for figure
-#pair1_fold_diff_2nd_minor = (mean(eusth_d1$second_moment_min) - mean(eusth_v1$second_moment_min)) / mean(eusth_d1$second_moment_min) 
-#pair2_fold_diff_2nd_minor = (mean(eusth_d2$second_moment_min) - mean(eusth_v2$second_moment_min)) / mean(eusth_d2$second_moment_min)
-(mean(eusth_d1$second_moment_min)/mean(eusth_v1$second_moment_min) +
-mean(eusth_d2$second_moment_min)/mean(eusth_v2$second_moment_min) +
-mean(eusth_d3$second_moment_min)/mean(eusth_v3$second_moment_min))/3
-
-mean(eusth_v1$second_moment_max)/mean(eusth_d1$second_moment_max)
-mean(eusth_v2$second_moment_max)/mean(eusth_d2$second_moment_max)
-mean(eusth_v3$second_moment_max)/mean(eusth_d3$second_moment_max)
-
+# comparing difference in SMA -- for text
+(mean(eusth_d1$second_moment_min)/mean(eusth_v1$second_moment_min) + mean(eusth_d2$second_moment_min)/mean(eusth_v2$second_moment_min) + mean(eusth_d3$second_moment_min)/mean(eusth_v3$second_moment_min)) /3
 
 # statistics  
 # test if  data are normally distributed.
@@ -81,15 +67,12 @@ shapiro.test(eusth_d3$csa)
 shapiro.test(eusth_v1$csa)
 shapiro.test(eusth_v2$csa)
 shapiro.test(eusth_d3$csa)
-shapiro.test(eusth_d1$second_moment_min) # greater than 0.05= normal
+shapiro.test(eusth_d1$second_moment_min)
 shapiro.test(eusth_d2$second_moment_min)
 shapiro.test(eusth_d3$second_moment_min)
 shapiro.test(eusth_v1$second_moment_min)
-shapiro.test(eusth_v2$second_moment_min) # greater than 0.05 = normal
+shapiro.test(eusth_v2$second_moment_min)
 shapiro.test(eusth_v3$second_moment_min)
-# Interpreting the output: p-values < 0.05 imply that the distribution of the data are significantly different from normal distribution. In other words, we can assume that they are not-normal.
-# Therefore, it is more appropriate to run the Mann-Whitney-Wilcoxon Test, which allows us to testwhether the population distributions are identical without assuming them to follow the normal distribution.
-
 
 #  table of these results
 d1_vs_v1_csa <- as.vector(c("Eusthenopteron", "CMNH8153", "d1_vs_v1", "csa", wilcox.test(eusth_d1$csa, eusth_v1$csa)$statistic, wilcox.test(eusth_d1$csa, eusth_v1$csa)$p.value))

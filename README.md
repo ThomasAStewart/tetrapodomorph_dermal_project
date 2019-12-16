@@ -13,6 +13,7 @@ Project Summary: The files in this project folder were used to compare the dorsa
 The code is used to generate panels for Fig. 5,  S7, S8, and Table S2. The figures were further tidied / organized using illustrator.
 
 Additional supporting documents for the publication:
+
  1 - Cross sectional area and second moment of area are deposited to Dryad Digital Repository:
  Stewart, T.A. et al. 2019. Data from: Fin ray patterns at the fin to limb transition, v4, Dryad, Dataset, https://doi.org/10.5061/dryad.2fqz612kd 
  website: https://datadryad.org/stash/dataset/doi:10.5061/dryad.2fqz612kd
